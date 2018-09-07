@@ -114,10 +114,11 @@ class DTD_Dataset(object):
             generated_image += comb_img
             used_classes.append(class_id)
             
-        index = np.random.randint(0,len(used_classes))
-        random_class_id = used_classes[index]
-        texture = self.get_random_texture_by_class(random_class_id)
-        texture = cv2.resize(texture, (img_size, img_size))
+        # index = np.random.randint(0,len(used_classes))
+        # random_class_id = used_classes[index]
+        # texture = self.get_random_texture_by_class(random_class_id)
+        # texture = cv2.resize(texture, (img_size, img_size))
+        texture = image.copy()
         texture = self.random_crop(texture, texture_size, texture_size)
         # cv2.imshow("mask", generated_image)
         # cv2.waitKey(0)

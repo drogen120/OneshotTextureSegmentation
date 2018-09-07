@@ -28,8 +28,8 @@ DEFAULT_LOGS_DIR = os.path.join(ROOT_DIR, "logs")
 class TextureConfig(Config):
     NAME = "Texture"
     TRAIN_BN = True
-    STEPS_PER_EPOCH = 10
-    VALIDATION_STEPS = 2
+    STEPS_PER_EPOCH = 2000
+    VALIDATION_STEPS = 100
 
 if __name__ == '__main__':
     import argparse
@@ -72,4 +72,6 @@ if __name__ == '__main__':
     ])
 
     model.train(dataset_train, dataset_val, learning_rate = 0.001,
-                   epochs = 400, layers = 'all', augmentation=augmentation)
+                   epochs = 1000, layers = 'all', augmentation=augmentation)
+    model.train(dataset_train, dataset_val, learning_rate = 0.0001,
+                   epochs = 2000, layers = 'all', augmentation=augmentation)

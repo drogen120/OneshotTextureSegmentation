@@ -258,7 +258,7 @@ def decode_graph(input_tensor, skip_layers, use_bias=True, train_bn=True):
         decode_output = KL.Conv2D(1, (1,1), name="decode_result")(x)
         output_mask = KL.Activation("sigmoid",
                              name="prob_output")(decode_output)
-        return output_mask
+        return decode_output, output_mask
 
 def build_encode_model(use_bias=True, train_bn=True):
     input_image = KL.Input(shape=[None, None, 3], name="input_encode_image")
@@ -298,7 +298,7 @@ class TextureNet():
             corelations = KL.Lambda(lambda t : tf.nn.conv2d(t[0], t[1], strides=[1,1,1,1], 
                                             padding='SAME'))([image_features, texture_filter])
 
-            output_mask = decode_graph(corelations, conv_skip_layers,
+            decoded_mask, output_mask = decode_graph(corelations, conv_skip_layers,
                                        train_bn=config.TRAIN_BN)
 
             inputs = [input_image, input_texture]
@@ -318,7 +318,7 @@ class TextureNet():
             corelations = KL.Lambda(lambda t : tf.nn.conv2d(t[0], t[1], strides=[1,1,1,1], 
                                             padding='SAME'))([image_features, texture_filter])
 
-            output_mask = decode_graph(corelations, conv_skip_layers,
+            decoded_mask, output_mask = decode_graph(corelations, conv_skip_layers,
                                        train_bn=train_bn)
 
             inputs = [input_image, input_texture]
@@ -500,7 +500,7 @@ class TextureNet():
 
         evaluator = utils.Segmentation_Evaluator(vis_generator,
                                                  self.log_dir+"/evaluator/",
-                                                 eval_num=1)
+                                                 eval_num=100)
 
         # Callbacks
         callbacks = [
@@ -509,7 +509,7 @@ class TextureNet():
                                         write_images=False),
             evaluator,
             keras.callbacks.ModelCheckpoint(self.checkpoint_path,
-                                            period=5,
+                                            period=10,
                                             verbose=0, save_weights_only=True)
         ]
 
