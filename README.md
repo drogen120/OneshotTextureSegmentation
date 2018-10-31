@@ -21,3 +21,9 @@ home
 | | |-- labels
 
 run python train.py to train the model.
+
+### Results
+
+![input image a](https://github.com/drogen120/OneshotTextureSegmentation/tree/master/results/image_1530.jpg)
+![input image a texture](https://github.com/drogen120/OneshotTextureSegmentation/tree/master/results/texture_1530.jpg)
+![predict mask](https://github.com/drogen120/OneshotTextureSegmentation/tree/master/results/image_pred_1530.jpg)
