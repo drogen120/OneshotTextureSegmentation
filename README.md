@@ -46,3 +46,7 @@ Example 3
 ![input image a](https://raw.githubusercontent.com/drogen120/OneshotTextureSegmentation/master/results/image_1835.jpg)
 ![input image a texture](https://raw.githubusercontent.com/drogen120/OneshotTextureSegmentation/master/results/texture_1835.jpg)
 ![predict mask](https://raw.githubusercontent.com/drogen120/OneshotTextureSegmentation/master/results/image_pred_1835.jpg)
+
+### Model Weights Downloads
+
+https://drive.google.com/file/d/1HOyIaBOpYyZeAFJOLjvcOaddSbCSVMig/view?usp=sharing
