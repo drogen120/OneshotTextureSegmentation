@@ -24,9 +24,6 @@ run python train.py to train the model.
 
 ### Results
 
-![input image a]
-(http://github.com/drogen120/OneshotTextureSegmentation/raw/master/results/image_1530.jpg)
-![input image a texture]
-(http://github.com/drogen120/OneshotTextureSegmentation/raw/master/results/texture_1530.jpg)
-![predict mask]
-(http://github.com/drogen120/OneshotTextureSegmentation/raw/master/results/image_pred_1530.jpg)
+![input image a](http://github.com/drogen120/OneshotTextureSegmentation/raw/master/results/image_1530.jpg)
+![input image a texture](http://github.com/drogen120/OneshotTextureSegmentation/raw/master/results/texture_1530.jpg)
+![predict mask](http://github.com/drogen120/OneshotTextureSegmentation/raw/master/results/image_pred_1530.jpg)
