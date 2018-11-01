@@ -2,6 +2,13 @@
 An implementation of Oneshot TextureSegmentation
 https://arxiv.org/abs/1807.02654
 
+### Environment
+Python 3.5
+
+Tensorflow 1.9
+
+Keras 2.2
+
 ### How to use
 
 Download dataset from https://www.robots.ox.ac.uk/~vgg/data/dtd/index.html#citation
