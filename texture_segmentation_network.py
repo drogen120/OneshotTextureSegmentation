@@ -45,6 +45,9 @@ class BatchNorm(KL.BatchNormalization):
 def mold_image(images, config):
     return (images.astype(np.float32) - config.MEAN_PIXEL) / 127.0
 
+def unmold_image(image, config):
+    return image.astype(np.float32) * 255.0
+
 def load_image_gt(dataset, config, augmentation=None):
     texture_num = np.random.randint(2,6)
     image_data, mask_data, class_data, texture = \
@@ -298,7 +301,7 @@ class TextureNet():
             corelations = KL.Lambda(lambda t : tf.nn.conv2d(t[0], t[1], strides=[1,1,1,1], 
                                             padding='SAME'))([image_features, texture_filter])
 
-            decoded_mask, output_mask = decode_graph(corelations, conv_skip_layers,
+            decoded_mask, output_mask = decode_graph(corelations, conv_skip_layers, use_bias = True,
                                        train_bn=config.TRAIN_BN)
 
             inputs = [input_image, input_texture]
@@ -319,7 +322,7 @@ class TextureNet():
                                             padding='SAME'))([image_features, texture_filter])
 
             decoded_mask, output_mask = decode_graph(corelations, conv_skip_layers,
-                                       train_bn=train_bn)
+                                       train_bn=config.TRAIN_BN)
 
             inputs = [input_image, input_texture]
             outputs = output_mask
@@ -372,7 +375,7 @@ class TextureNet():
         exlude: list of layer names to excluce
         """
         import h5py
-        from keras.engine import topology
+        from keras.engine import saving
 
         if exclude:
             by_name = True
@@ -394,9 +397,9 @@ class TextureNet():
             layers = filter(lambda l: l.name not in exclude, layers)
 
         if by_name:
-            topology.load_weights_from_hdf5_group_by_name(f, layers)
+            saving.load_weights_from_hdf5_group_by_name(f, layers)
         else:
-            topology.load_weights_from_hdf5_group(f, layers)
+            saving.load_weights_from_hdf5_group(f, layers)
         if hasattr(f, 'close'):
             f.close()
 
@@ -555,7 +558,7 @@ class TextureNet():
             tile_image, _, _, _ = utils.resize_image(
                 tile_image,
                 min_dim=0,
-                max_dim=128,
+                max_dim=64,
                 padding=self.config.IMAGE_PADDING
             )
             molded_tile_image = mold_image(tile_image, self.config)
@@ -586,7 +589,7 @@ class TextureNet():
 
         results = []
         for i, result_mask in enumerate(result_mask_probs):
-            results.append({"mask": result_mask})
+            results.append({"mask": unmold_image(result_mask, self.config)})
 
         return results
 
