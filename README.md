@@ -9,6 +9,9 @@ Tensorflow 1.9
 
 Keras 2.2
 
+A pytorch version is here:
+https://github.com/LiamLYJ/scene_seg
+
 ### How to use
 
 Download dataset from https://www.robots.ox.ac.uk/~vgg/data/dtd/index.html#citation
